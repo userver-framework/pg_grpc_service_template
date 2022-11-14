@@ -4,7 +4,6 @@ package handlers.api;
 
 service HelloService {
 	rpc SayHello(HelloRequest) returns(HelloResponse) {}
-	rpc SayHelloMock(HelloRequest) returns(HelloResponse) {}
 }
 
 message HelloRequest {

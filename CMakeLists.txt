@@ -11,8 +11,8 @@ add_subdirectory(third_party/userver)
 add_library(${PROJECT_NAME}_objs OBJECT
     src/hello.hpp
     src/hello.cpp
-	src/hello_client.hpp
-	src/hello_client.cpp
+    src/hello_client.hpp
+    src/hello_client.cpp
 )
 # Grpc enable
 include(GrpcTargets)
@@ -45,9 +45,9 @@ add_google_benchmark_tests(${PROJECT_NAME}_benchmark)
 add_subdirectory(tests)
 
 if(DEFINED ENV{PREFIX})
-	message(STATUS "Set install prefix: $ENV{PREFIX}")
-	file(TO_CMAKE_PATH "$ENV{PREFIX}" PREFIX_PATH)
-	set(CMAKE_INSTALL_PREFIX ${PREFIX_PATH})
+    message(STATUS "Set install prefix: $ENV{PREFIX}")
+    file(TO_CMAKE_PATH "$ENV{PREFIX}" PREFIX_PATH)
+    set(CMAKE_INSTALL_PREFIX ${PREFIX_PATH})
 endif()
 
 set(CONFIG_VAR_PATH ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME}/config_vars.yaml)

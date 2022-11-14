@@ -9,9 +9,6 @@ from testsuite.databases.pgsql import discover
 USERVER_CONFIG_HOOKS = ['_prepare_service_config']
 pytest_plugins = [
     'pytest_userver.plugins',
-    'pytest_userver.plugins.samples',
-    'pytest_userver.plugins.grpc',
-    'pytest_userver.plugins.grpc_mockserver',
     'testsuite.databases.pgsql.pytest_plugin',
 ]
 
@@ -27,7 +24,7 @@ def hello_services():
 
 
 @pytest.fixture
-def grpc_service(hello_services, grpc_channel, service_client):
+def grpc_service(pgsql, hello_services, grpc_channel, service_client):
     return hello_services.HelloServiceStub(grpc_channel)
 
 

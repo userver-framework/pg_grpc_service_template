@@ -40,6 +40,7 @@ services:
           - ${TC_CORES_DIR:-./.cores}:/cores:rw
         ports:
           - 8080:8080
+          - 8081:8081
         working_dir: /pg_grpc_service_template
         entrypoint:
           - /tools/run_as_user.sh

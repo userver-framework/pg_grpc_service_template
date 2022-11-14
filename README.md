@@ -1,6 +1,6 @@
 # pg_grpc_service_template
 
-Template of a C++ service that uses [userver framework](https://github.com/userver-framework/userver) with PostgreSQL.
+Template of a C++ service that uses [userver framework](https://github.com/userver-framework/userver) with PostgreSQL and gRPC.
 
 
 ## Download and Build

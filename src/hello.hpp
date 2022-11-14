@@ -29,8 +29,8 @@ class Hello final : public handlers::api::HelloServiceBase::Component {
 
   void SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
                 handlers::api::HelloRequest&& request);
-  void SayHelloMock(handlers::api::HelloServiceBase::SayHelloMockCall& call,
-                    handlers::api::HelloRequest&& request);
+  // void SayHelloMock(handlers::api::HelloServiceBase::SayHelloMockCall& call,
+  //                 handlers::api::HelloRequest&& request);
 
  private:
   userver::storages::postgres::ClusterPtr pg_cluster_;

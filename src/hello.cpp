@@ -26,13 +26,15 @@ void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
       user_type = UserType::kKnown;
     }
   }
-
+  if (name.substr(0, 5) == "mock_") {
+    name = client_.SayHello(name.substr(5));
+  }
   handlers::api::HelloResponse response;
   response.set_text(pg_grpc_service_template::SayHelloTo(name, user_type));
   call.Finish(response);
 }
 
-void Hello::SayHelloMock(
+/*void Hello::SayHelloMock(
     handlers::api::HelloServiceBase::SayHelloMockCall& call,
     handlers::api::HelloRequest&& request) {
   auto name = request.name();
@@ -42,7 +44,7 @@ void Hello::SayHelloMock(
   handlers::api::HelloResponse response;
   response.set_text(data);
   call.Finish(response);
-}
+}*/
 
 std::string SayHelloTo(std::string_view name, UserType type) {
   if (name.empty()) {
