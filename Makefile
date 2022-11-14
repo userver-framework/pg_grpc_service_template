@@ -27,18 +27,18 @@ build_release/Makefile:
 
 # build using cmake
 build-impl-%: build_%/Makefile
-	@cmake --build build_$* -j $(NPROCS) --target pg_service_template
+	@cmake --build build_$* -j $(NPROCS) --target pg_grpc_service_template
 
 # test
 test-impl-%: build-impl-%
-	@cmake --build build_$* -j $(NPROCS) --target pg_service_template_unittest
-	@cmake --build build_$* -j $(NPROCS) --target pg_service_template_benchmark
+	@cmake --build build_$* -j $(NPROCS) --target pg_grpc_service_template_unittest
+	@cmake --build build_$* -j $(NPROCS) --target pg_grpc_service_template_benchmark
 	@cd build_$* && ((test -t 1 && GTEST_COLOR=1 PYTEST_ADDOPTS="--color=yes" ctest -V) || ctest -V)
 	@pep8 tests
 
 # testsuite service runner
 service-impl-start-%: build-impl-%
-	@cd ./build_$* && $(MAKE) start-pg_service_template
+	@cd ./build_$* && $(MAKE) start-pg_grpc_service_template
 
 # clean
 clean-impl-%:
@@ -60,37 +60,37 @@ format:
 
 install-debug: build-debug
 	@cd build_debug && \
-		cmake --install . -v --component pg_service_template
+		cmake --install . -v --component pg_grpc_service_template
 
 install: build-release
 	@cd build_release && \
-		cmake --install . -v --component pg_service_template
+		cmake --install . -v --component pg_grpc_service_template
 
 # Hide target, use only in docker environment
 --debug-start-in-docker: install
-	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/pg_service_template/static_config.yaml
-	@psql 'postgresql://user:password@service-postgres:5432/pg_service_template_db-1' -f ./postgresql/data/initial_data.sql
-	@/home/user/.local/bin/pg_service_template \
-		--config /home/user/.local/etc/pg_service_template/static_config.yaml
+	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/pg_grpc_service_template/static_config.yaml
+	@psql 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db-1' -f ./postgresql/data/initial_data.sql
+	@/home/user/.local/bin/pg_grpc_service_template \
+		--config /home/user/.local/etc/pg_grpc_service_template/static_config.yaml
 
 # Hide target, use only in docker environment
 --debug-start-in-docker-debug: install-debug
-	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/pg_service_template/static_config.yaml
-	@psql 'postgresql://user:password@service-postgres:5432/pg_service_template_db-1' -f ./postgresql/data/initial_data.sql
-	@/home/user/.local/bin/pg_service_template \
-		--config /home/user/.local/etc/pg_service_template/static_config.yaml
+	@sed -i 's/config_vars.yaml/config_vars.docker.yaml/g' /home/user/.local/etc/pg_grpc_service_template/static_config.yaml
+	@psql 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db-1' -f ./postgresql/data/initial_data.sql
+	@/home/user/.local/bin/pg_grpc_service_template \
+		--config /home/user/.local/etc/pg_grpc_service_template/static_config.yaml
 
 # Start targets makefile in docker enviroment
 docker-impl-%:
-	docker-compose run --rm pg_service_template-service make $*
+	docker-compose run --rm pg_grpc_service_template-service make $*
 
 # Build and runs service in docker environment
 docker-start-service-debug:
-	@docker-compose run -p 8080:8080 --rm pg_service_template-service make -- --debug-start-in-docker-debug
+	@docker-compose run -p 8080:8080 --rm pg_grpc_service_template-service make -- --debug-start-in-docker-debug
 
 # Build and runs service in docker environment
 docker-start-service:
-	@docker-compose run -p 8080:8080 --rm pg_service_template-service make -- --debug-start-in-docker
+	@docker-compose run -p 8080:8080 --rm pg_grpc_service_template-service make -- --debug-start-in-docker
 
 # Stop docker container and remove PG data
 docker-clean-data:
