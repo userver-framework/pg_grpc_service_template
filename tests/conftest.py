@@ -40,7 +40,7 @@ def mock_grpc_hello_session(
 
 
 @pytest.fixture
-def mock_grpc_hello(mock_grpc_hello_session):
+def mock_grpc_server(mock_grpc_hello_session):
     with mock_grpc_hello_session.mock() as mock:
         yield mock
 

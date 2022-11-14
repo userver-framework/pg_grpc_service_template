@@ -40,8 +40,7 @@ properties:
     endpoint:
         type: string
         description: >
-            the service endpoint (URI). We talk to our own service,
-            which is kind of pointless, but works for an example
+            Some other service endpoint (URI). 
 )");
 }
 
