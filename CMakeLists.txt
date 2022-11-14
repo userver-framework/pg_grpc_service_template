@@ -13,8 +13,6 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello.cpp
 	src/hello_client.hpp
 	src/hello_client.cpp
-	src/hello_http_proxy.hpp
-	src/hello_http_proxy.cpp
 )
 # Grpc enable
 include(GrpcTargets)

@@ -32,11 +32,6 @@ components_manager:
             # https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
             channel-args: {}
 
-        handler-hello-http-proxy:
-            path: /v1/hello
-            method: POST
-            task_processor: main-task-processor
-
         handler-hello:
             task-processor: main-task-processor
 
@@ -47,9 +42,9 @@ components_manager:
             port: 8081
 
         server:
-             listener:                 # configuring the main listening socket...
-                 port: $server-port            # ...to listen on this port and...
-                 task_processor: main-task-processor    # ...process incoming requests on this task processor.
+            listener:                 # configuring the main listening socket...
+                port: $server-port            # ...to listen on this port and...
+                task_processor: main-task-processor    # ...process incoming requests on this task processor.
         logging:
             fs-task-processor: fs-task-processor
             loggers:

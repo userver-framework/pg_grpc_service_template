@@ -4,8 +4,10 @@
 #include <string_view>
 
 #include <handlers/hello_service.usrv.pb.hpp>
+#include <handlers/hello_client.usrv.pb.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/storages/postgres/component.hpp>
+#include "hello_client.hpp"
 
 namespace pg_grpc_service_template {
 
@@ -22,13 +24,18 @@ class Hello final : public handlers::api::HelloServiceBase::Component {
         pg_cluster_(
             component_context
                 .FindComponent<userver::components::Postgres>("postgres-db-1")
-                .GetCluster()) {}
+                .GetCluster()),
+        client_(component_context.FindComponent<HelloClient>())
+  {}
 
   void SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
+                handlers::api::HelloRequest&& request);
+  void SayHelloMock(handlers::api::HelloServiceBase::SayHelloMockCall& call,
                 handlers::api::HelloRequest&& request);
 
  private:
   userver::storages::postgres::ClusterPtr pg_cluster_;
+  HelloClient& client_;
 };
 
 void AppendHello(userver::components::ComponentList& component_list);

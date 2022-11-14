@@ -9,7 +9,6 @@
 
 #include "hello.hpp"
 #include "hello_client.hpp"
-#include "hello_http_proxy.hpp"
 
 int main(int argc, char* argv[]) {
   auto component_list =
@@ -23,7 +22,6 @@ int main(int argc, char* argv[]) {
 
   pg_grpc_service_template::AppendHello(component_list);
   pg_grpc_service_template::AppendHelloClient(component_list);
-  pg_grpc_service_template::AppendHelloHttpProxy(component_list);
 
   return userver::utils::DaemonMain(argc, argv, component_list);
 }

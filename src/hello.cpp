@@ -32,6 +32,18 @@ void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
   call.Finish(response);
 }
 
+void Hello::SayHelloMock(handlers::api::HelloServiceBase::SayHelloMockCall& call,
+                     handlers::api::HelloRequest&& request) {
+  auto name = request.name();
+
+  auto data = client_.SayHello(request.name());
+
+  handlers::api::HelloResponse response;
+  response.set_text(data);
+  call.Finish(response);
+}
+
+
 std::string SayHelloTo(std::string_view name, UserType type) {
   if (name.empty()) {
     name = "unknown user";
