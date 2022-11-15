@@ -48,7 +48,18 @@ services:
           - postgres
         networks:
           - postgres
+          - dockerbridge
 
 networks:
     postgres:
         driver: bridge
+    dockerbridge:
+        enable_ipv6: true
+        driver: bridge
+        driver_opts:
+            com.docker.network.enable_ipv6: "true"
+        ipam:
+            driver: default
+            config:
+             - subnet: 2001:3984:3989::/64
+               gateway: 2001:3984:3989::1
