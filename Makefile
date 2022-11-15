@@ -82,15 +82,15 @@ install: build-release
 
 # Start targets makefile in docker enviroment
 docker-impl-%:
-	docker-compose run --rm pg_grpc_service_template-service make $*
+	docker-compose run -p 8080:8080 -p 8081:8081 --rm pg_grpc_service_template-service make $*
 
 # Build and runs service in docker environment
 docker-start-service-debug:
-	@docker-compose run -p 8080:8080 --rm pg_grpc_service_template-service make -- --debug-start-in-docker-debug
+	@docker-compose run -p 8080:8080 -p 8081:8081 --rm pg_grpc_service_template-service make -- --debug-start-in-docker-debug
 
 # Build and runs service in docker environment
 docker-start-service:
-	@docker-compose run -p 8080:8080 --rm pg_grpc_service_template-service make -- --debug-start-in-docker
+	@docker-compose run -p 8080:8080 -p 8081:8081 --rm pg_grpc_service_template-service make -- --debug-start-in-docker
 
 # Stop docker container and remove PG data
 docker-clean-data:
