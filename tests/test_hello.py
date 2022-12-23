@@ -37,7 +37,7 @@ async def test_db_updates(hello_protos, grpc_service):
     assert response.text == 'Hi again, World!\n'
 
 
-@pytest.mark.pgsql('db-1', files=['initial_data.sql'])
+@pytest.mark.pgsql('db_1', files=['initial_data.sql'])
 async def test_db_initial_data(hello_protos, grpc_service):
     request = hello_protos.HelloRequest(name='user-from-initial_data.sql')
     response = await grpc_service.SayHello(request)

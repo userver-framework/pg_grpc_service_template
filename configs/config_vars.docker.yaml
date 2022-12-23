@@ -10,4 +10,4 @@ server-grpc-port: 8081
 
 hello-endpoint: '[::1]:8081'
 
-dbconnection: 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db-1'
+dbconnection: 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db_1'
