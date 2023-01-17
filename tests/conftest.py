@@ -7,10 +7,7 @@ import grpc
 from testsuite.databases.pgsql import discover
 
 USERVER_CONFIG_HOOKS = ['_prepare_service_config']
-pytest_plugins = [
-    'pytest_userver.plugins',
-    'testsuite.databases.pgsql.pytest_plugin',
-]
+pytest_plugins = ['pytest_userver.plugins.pgsql']
 
 
 @pytest.fixture(scope='session')
@@ -60,29 +57,24 @@ def pytest_configure(config):
 
 
 @pytest.fixture(scope='session')
-def root_dir():
+def service_source_dir():
     """Path to root directory service."""
     return pathlib.Path(__file__).parent.parent
 
 
 @pytest.fixture(scope='session')
-def initial_data_path(root_dir):
+def initial_data_path(service_source_dir):
     """Path for find files with data"""
     return [
-        root_dir / 'postgresql/data',
+        service_source_dir / 'postgresql/data',
     ]
 
 
 @pytest.fixture(scope='session')
-def pgsql_local(root_dir, pgsql_local_create):
+def pgsql_local(service_source_dir, pgsql_local_create):
     """Create schemas databases for tests"""
     databases = discover.find_schemas(
         'pg_grpc_service_template',
-        [root_dir.joinpath('postgresql/schemas')],
+        [service_source_dir.joinpath('postgresql/schemas')],
     )
     return pgsql_local_create(list(databases.values()))
-
-
-@pytest.fixture
-def client_deps(pgsql):
-    pass
