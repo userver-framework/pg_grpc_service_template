@@ -7,7 +7,10 @@ import grpc
 from testsuite.databases.pgsql import discover
 
 USERVER_CONFIG_HOOKS = ['_prepare_service_config']
-pytest_plugins = ['pytest_userver.plugins.pgsql']
+pytest_plugins = [
+    'pytest_userver.plugins.postgresql',
+    'pytest_userver.plugins.grpc',
+]
 
 
 @pytest.fixture(scope='session')
