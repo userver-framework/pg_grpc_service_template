@@ -30,7 +30,9 @@ jobs:
             run: docker-compose run --rm pg_grpc_service_template-container bash -c 'ccache -M 2.0GB && ccache -s'
 
           - name: Cmake
-            run: make docker-cmake-release
+            run: |
+              echo 'CMAKE_COMMON_FLAGS += -DUserverGrpc_VERSION=1.51.0' >> Makefile.local
+              make docker-cmake-release
 
           - name: Build
             run: make docker-build-release
