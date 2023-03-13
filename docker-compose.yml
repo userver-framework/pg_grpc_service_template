@@ -30,7 +30,7 @@ services:
           - CCACHE_NOHASHDIR
           - CCACHE_PREFIX
           - CCACHE_SIZE
-          - CMAKE_OPTS
+          - CMAKE_OPTS=-DUserverGrpc_VERSION=1.51.0
           - CORES_DIR=/cores
           - CXX
           - MAKE_OPTS
