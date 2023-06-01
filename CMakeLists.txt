@@ -1,6 +1,7 @@
 cmake_minimum_required(VERSION 3.12)
 project(pg_grpc_service_template CXX)
 
+include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)
 
 add_subdirectory(third_party/userver)
@@ -14,7 +15,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello_client.cpp
 )
 # Grpc enable
-include(third_party/userver/cmake/GrpcTargets.cmake)
+include(GrpcTargets)
 add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
 
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql ${PROJECT_NAME}_proto)
