@@ -15,6 +15,9 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello_client.cpp
 )
 # Grpc enable
+
+include(SetupProtobuf)
+include(SetupGrpc)    
 include(GrpcTargets)
 add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
 
