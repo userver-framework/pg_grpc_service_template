@@ -14,7 +14,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello_client.cpp
 )
 # Grpc enable
-include(GrpcTargets)
+include(third_party/userver/cmake/GrpcTargets.cmake)
 add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
 
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql ${PROJECT_NAME}_proto)
