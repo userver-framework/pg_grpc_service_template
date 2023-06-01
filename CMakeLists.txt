@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.12)
 project(pg_grpc_service_template CXX)
 
-find_package(gRPC QUIET)
-
 include(third_party/userver/cmake/SetupEnvironment.cmake)
 include(GNUInstallDirs)
 
