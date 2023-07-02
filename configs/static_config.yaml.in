@@ -33,6 +33,7 @@ components_manager:
             channel-args: {}
 
         handler-hello:
+            middlewares: []
             task-processor: main-task-processor
 
         hello-client:
