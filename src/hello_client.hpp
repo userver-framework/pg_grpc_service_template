@@ -3,7 +3,7 @@
 #include <handlers/hello_client.usrv.pb.hpp>
 #include <userver/components/component_list.hpp>
 #include <userver/components/loggable_component_base.hpp>
-#include <userver/components/impl/component_base.hpp>
+#include <userver/components/component.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
 
 namespace pg_grpc_service_template {
@@ -21,7 +21,7 @@ class HelloClient final : public userver::components::LoggableComponentBase {
                 .GetFactory()),
         // The client needs a fixed endpoint
         client_(client_factory_.MakeClient<handlers::api::HelloServiceClient>(
-            config["endpoint"].As<std::string>())) {}
+            "hello-client", config["endpoint"].As<std::string>())) {}
 
   std::string SayHello(std::string name);
 
