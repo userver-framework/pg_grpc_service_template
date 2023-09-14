@@ -18,7 +18,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
 include(GrpcTargets)
 add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
 
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-core userver-postgresql ${PROJECT_NAME}_proto)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-postgresql ${PROJECT_NAME}_proto)
 
 
 # The Service
