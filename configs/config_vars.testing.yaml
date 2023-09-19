@@ -3,10 +3,7 @@ worker-fs-threads: 2
 worker-grpc-threads: 2
 logger-level: debug
 
-is_testing: true
-
-server-port: 8080
-server-grpc-port: 8081
+is-testing: true
 
 hello-endpoint: '[::1]:8081'
 
