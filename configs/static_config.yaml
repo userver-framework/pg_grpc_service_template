@@ -43,7 +43,7 @@ components_manager:
                     file_path: '@stderr'
                     level: $logger-level
                     overflow_behavior: discard  # Drop logs if the system is too busy to write them down.
-
+it
         # Dynamic config options. Cache is disabled, updates are disabled.
         dynamic-config:
             # For most of userver dynamic configs, defaults are used, some are overridden here.
