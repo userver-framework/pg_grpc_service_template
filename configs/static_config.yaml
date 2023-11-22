@@ -9,6 +9,7 @@ components_manager:
 
         grpc-blocking-task-processor:
             worker_threads: $worker-grpc-threads
+            thread_name: grpc-worker
 
     default_task_processor: main-task-processor
 
