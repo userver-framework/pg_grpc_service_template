@@ -6,7 +6,7 @@ import handlers.hello_pb2 as hello_protos  # noqa: E402, E501
 
 
 async def test_grpc_client(mock_grpc_server, grpc_service):
-    @mock_grpc_server('SayHello')che
+    @mock_grpc_server('SayHello')
     async def mock_say_hello(request, context):
         assert request.name
         return hello_protos.HelloResponse(
