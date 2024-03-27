@@ -17,7 +17,7 @@ services:
           - postgres
 
     pg_grpc_service_template-container:
-        image: ghcr.io/userver-framework/ubuntu-userver-build-base:v1
+        image: ghcr.io/userver-framework/ubuntu-userver-build-base:v2
         privileged: true
         environment:
           - POSTGRES_DB=pg_grpc_service_template_db-1
@@ -37,7 +37,7 @@ services:
           - CMAKE_COMMON_FLAGS
         volumes:
           - .:/pg_grpc_service_template:rw
-          - ./third_party/userver/tools/docker:/tools:ro
+          - ./third_party/userver/scripts/docker/:/tools:ro
           - ${TC_CORES_DIR:-./.cores}:/cores:rw
         ports:
           - 8080:8080
