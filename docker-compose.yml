@@ -24,17 +24,8 @@ services:
           - POSTGRES_USER=user
           - POSTGRES_PASSWORD=password
           - PREFIX=${PREFIX:-~/.local}
-          - CC
           - CCACHE_DIR=/pg_grpc_service_template/.ccache
-          - CCACHE_HASHDIR
-          - CCACHE_NOHASHDIR
-          - CCACHE_PREFIX
-          - CCACHE_SIZE
-          - CMAKE_OPTS
           - CORES_DIR=/cores
-          - CXX
-          - MAKE_OPTS
-          - CMAKE_COMMON_FLAGS
         volumes:
           - .:/pg_grpc_service_template:rw
           - ./third_party/userver/scripts/docker/:/tools:ro

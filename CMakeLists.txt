@@ -23,7 +23,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello_client.hpp
     src/hello_client.cpp
 )
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver-postgresql)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql)
 
 # Create a proto library with userver extensions
 include(GrpcTargets)
@@ -40,7 +40,7 @@ target_link_libraries(${PROJECT_NAME} PRIVATE ${PROJECT_NAME}_objs)
 add_executable(${PROJECT_NAME}_unittest
     src/hello_test.cpp
 )
-target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver-utest)
+target_link_libraries(${PROJECT_NAME}_unittest PRIVATE ${PROJECT_NAME}_objs userver::utest)
 add_google_tests(${PROJECT_NAME}_unittest)
 
 
@@ -48,7 +48,7 @@ add_google_tests(${PROJECT_NAME}_unittest)
 add_executable(${PROJECT_NAME}_benchmark
     src/hello_benchmark.cpp
 )
-target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver-ubench)
+target_link_libraries(${PROJECT_NAME}_benchmark PRIVATE ${PROJECT_NAME}_objs userver::ubench)
 add_google_benchmark_tests(${PROJECT_NAME}_benchmark)
 
 
