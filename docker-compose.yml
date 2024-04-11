@@ -17,7 +17,7 @@ services:
           - postgres
 
     pg_grpc_service_template-container:
-        image: ghcr.io/userver-framework/ubuntu-userver-build-base:v2
+        image: ghcr.io/userver-framework/ubuntu-22.04-userver-base-ci:latest
         privileged: true
         environment:
           - POSTGRES_DB=pg_grpc_service_template_db-1
