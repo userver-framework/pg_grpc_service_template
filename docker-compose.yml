@@ -17,24 +17,15 @@ services:
           - postgres
 
     pg_grpc_service_template-container:
-        image: ghcr.io/userver-framework/ubuntu-userver-build-base:v2
+        image: ghcr.io/userver-framework/ubuntu-22.04-userver-base-ci:latest
         privileged: true
         environment:
           - POSTGRES_DB=pg_grpc_service_template_db-1
           - POSTGRES_USER=user
           - POSTGRES_PASSWORD=password
           - PREFIX=${PREFIX:-~/.local}
-          - CC
           - CCACHE_DIR=/pg_grpc_service_template/.ccache
-          - CCACHE_HASHDIR
-          - CCACHE_NOHASHDIR
-          - CCACHE_PREFIX
-          - CCACHE_SIZE
-          - CMAKE_OPTS
           - CORES_DIR=/cores
-          - CXX
-          - MAKE_OPTS
-          - CMAKE_COMMON_FLAGS
         volumes:
           - .:/pg_grpc_service_template:rw
           - ./third_party/userver/scripts/docker/:/tools:ro
