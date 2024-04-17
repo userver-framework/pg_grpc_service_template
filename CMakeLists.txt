@@ -13,13 +13,11 @@ if(NOT userver_FOUND)  # Fallback to subdirectory usage
     set(USERVER_FEATURE_GRPC_CHANNELZ OFF CACHE BOOL "" FORCE)
     set(USERVER_FEATURE_REDIS_HI_MALLOC ON CACHE BOOL "" FORCE)
 
-    if (EXISTS ../userver)
-        message(STATUS "Using userver framework from ../userver")
-        add_subdirectory(../userver "../bin.userver/")
+    if (EXISTS third_party/userver)
+        message(STATUS "Using userver framework from third_party/userver")
+        add_subdirectory(third_party/userver)
     else()
-        message(FATAL_ERROR
-            "Either install the userver package or provide a path to it"
-        )
+        message(FATAL_ERROR "Either install the userver or provide a path to it")
     endif()
 endif()
 
