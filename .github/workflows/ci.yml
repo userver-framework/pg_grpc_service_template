@@ -43,7 +43,9 @@ jobs:
           - name: Install packages
             run: |
                 sudo apt update
-                sudo apt install --allow-downgrades -y pep8 $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
+                sudo apt install --allow-downgrades -y pep8 $(wget -q -O- https://raw.githubusercontent.com/userver-framework/userver/develop/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
+                mkdir -p third_party
+                (cd third_party && git clone --depth 1 git@github.com:userver-framework/userver.git)
 
           - name: Setup ccache
             run: |
