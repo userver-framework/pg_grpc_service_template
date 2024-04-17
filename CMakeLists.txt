@@ -2,7 +2,7 @@ cmake_minimum_required(VERSION 3.12)
 project(pg_grpc_service_template CXX)
 
 # Adding userver dependency
-find_package(userver COMPONENTS core postgresql QUIET)
+find_package(userver COMPONENTS core grpc postgresql QUIET)
 if(NOT userver_FOUND)  # Fallback to subdirectory usage
     # Enable userver libraries that are needed in this project
     set(USERVER_FEATURE_POSTGRESQL ON CACHE BOOL "" FORCE)
@@ -33,7 +33,7 @@ add_library(${PROJECT_NAME}_objs OBJECT
     src/hello_client.hpp
     src/hello_client.cpp
 )
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc)
 
 # Create a proto library with userver extensions
 include(GrpcTargets)
