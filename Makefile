@@ -71,7 +71,7 @@ format:
 
 # Internal hidden targets that are used only in docker environment
 --in-docker-start-debug --in-docker-start-release: --in-docker-start-%: install-%
-	psql 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db-1' -f ./postgresql/data/initial_data.sql
+	psql 'postgresql://user:password@service-postgres:5432/pg_grpc_service_template_db_1' -f ./postgresql/data/initial_data.sql
 	/home/user/.local/bin/pg_grpc_service_template \
 		--config /home/user/.local/etc/pg_grpc_service_template/static_config.yaml \
 		--config_vars /home/user/.local/etc/pg_grpc_service_template/config_vars.docker.yaml
