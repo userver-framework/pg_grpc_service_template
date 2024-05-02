@@ -15,7 +15,7 @@ function(template_add_library)
             ${CMAKE_CURRENT_SOURCE_DIR}/src
         PUBLIC
             # where top-level project will look for the library's public headers
-            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/include>
+            $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/src>
             # where external projects will look for the library's public headers
             $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
     )
