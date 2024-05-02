@@ -1,5 +1,10 @@
 cmake_minimum_required(VERSION 3.12)
-project(pg_grpc_service_template CXX)
+
+set(CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake)
+
+project(pg_grpc_service_template VERSION 0.0.1)
+
+include(Installing)
 
 # Adding userver dependency
 find_package(userver COMPONENTS core grpc postgresql QUIET)
@@ -25,19 +30,19 @@ userver_setup_environment()
 
 
 # Common sources
-add_library(${PROJECT_NAME}_objs OBJECT
-    src/hello.hpp
+template_add_library(
+    LIB_NAME ${PROJECT_NAME}_objs
+    LIB_NAMESPACE ${PROJECT_NAME}
+    SRCS
     src/hello.cpp
-    src/hello_client.hpp
     src/hello_client.cpp
-)
+ )
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc)
 
 # Create a proto library with userver extensions
 include(GrpcTargets)
 userver_add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC ${PROJECT_NAME}_proto)
-
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC $<BUILD_INTERFACE:${PROJECT_NAME}_proto>)
 
 # The Service
 add_executable(${PROJECT_NAME} src/main.cpp)
@@ -79,3 +84,5 @@ file(GLOB CONFIGS_FILES ${CMAKE_CURRENT_SOURCE_DIR}/configs/*.yaml ${CMAKE_CURRE
 
 install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_BINDIR} COMPONENT ${PROJECT_NAME})
 install(FILES ${CONFIGS_FILES} DESTINATION ${CMAKE_INSTALL_SYSCONFDIR}/${PROJECT_NAME} COMPONENT ${PROJECT_NAME})
+
+include(Packaging)
