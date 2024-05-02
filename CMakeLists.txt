@@ -36,7 +36,7 @@ template_add_library(
     SRCS
     src/hello.cpp
     src/hello_client.cpp
- )
+)
 target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc)
 
 # Create a proto library with userver extensions
