@@ -40,6 +40,8 @@ template_add_library(
     src/hello_client.hpp
     SRCS
     src/hello_client.cpp
+    PROTOS
+    proto/handlers/hello.proto
 )
 target_link_libraries(${PROJECT_NAME}_client PUBLIC $<BUILD_INTERFACE:${PROJECT_NAME}_proto>)
 

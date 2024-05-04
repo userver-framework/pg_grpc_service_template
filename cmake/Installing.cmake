@@ -4,7 +4,7 @@ include(CMakePackageConfigHelpers)
 function(template_add_library)
     set(options)
     set(one_value_args LIB_NAME LIB_NAMESPACE)
-    set(multi_value_args PUBLIC_HDRS SRCS)
+    set(multi_value_args PUBLIC_HDRS SRCS PROTOS)
     cmake_parse_arguments(TEMPLATE "${options}" "${one_value_args}" "${multi_value_args}" ${ARGN})
     
     add_library(${TEMPLATE_LIB_NAME})
@@ -53,4 +53,6 @@ function(template_add_library)
         DESTINATION cmake
         COMPONENT ${TEMPLATE_LIB_NAME}
     )
+
+    install(FILES "${TEMPLATE_PROTOS}" DESTINATION proto COMPONENT ${TEMPLATE_LIB_NAME})
 endfunction()
