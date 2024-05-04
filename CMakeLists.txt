@@ -28,21 +28,27 @@ endif()
 
 userver_setup_environment()
 
-
-# Common sources
-template_add_library(
-    LIB_NAME ${PROJECT_NAME}_objs
-    LIB_NAMESPACE ${PROJECT_NAME}
-    SRCS
-    src/hello.cpp
-    src/hello_client.cpp
-)
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc)
-
 # Create a proto library with userver extensions
 include(GrpcTargets)
 userver_add_grpc_library(${PROJECT_NAME}_proto PROTOS handlers/hello.proto)
-target_link_libraries(${PROJECT_NAME}_objs PUBLIC $<BUILD_INTERFACE:${PROJECT_NAME}_proto>)
+
+# Create client library
+template_add_library(
+    LIB_NAME ${PROJECT_NAME}_client
+    LIB_NAMESPACE ${PROJECT_NAME}
+    PUBLIC_HDRS
+    src/hello_client.hpp
+    SRCS
+    src/hello_client.cpp
+)
+target_link_libraries(${PROJECT_NAME}_client PUBLIC $<BUILD_INTERFACE:${PROJECT_NAME}_proto>)
+
+# Common sources
+add_library(${PROJECT_NAME}_objs OBJECT
+    src/hello.hpp
+    src/hello.cpp
+)
+target_link_libraries(${PROJECT_NAME}_objs PUBLIC userver::postgresql userver::grpc ${PROJECT_NAME}_client)
 
 # The Service
 add_executable(${PROJECT_NAME} src/main.cpp)
