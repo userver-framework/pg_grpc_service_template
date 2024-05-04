@@ -54,5 +54,5 @@ function(template_add_library)
         COMPONENT ${TEMPLATE_LIB_NAME}
     )
 
-    install(FILES "${TEMPLATE_PROTOS}" DESTINATION proto COMPONENT ${TEMPLATE_LIB_NAME})
+    install(FILES "${TEMPLATE_PROTOS}" DESTINATION proto/${TEMPLATE_LIB_NAME} COMPONENT ${TEMPLATE_LIB_NAME})
 endfunction()
