@@ -46,8 +46,9 @@ jobs:
             run: |
                 (cd third_party && git clone -b develop --single-branch --depth 1 https://github.com/userver-framework/userver.git)
                 sudo apt update
-                sudo apt install --allow-downgrades -y pycodestyle postgresql $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
-                
+                sudo apt install --allow-downgrades -y postgresql $(cat third_party/userver/scripts/docs/en/deps/${{matrix.os}}.md | tr '\n' ' ')
+                python3 -m pip install -r requirements.txt
+
           - name: Setup ccache
             run: |
                 ccache -M 2.0GB
@@ -80,4 +81,3 @@ jobs:
             if: matrix.make == 'test-release'
             run: |
                 killall pg_grpc_service_template
-
