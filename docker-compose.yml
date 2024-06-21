@@ -4,10 +4,10 @@ services:
     postgres:
         container_name: service-postgres
         image: postgres:12
-        environment:
-          - POSTGRES_DB=pg_grpc_service_template_db_1
-          - POSTGRES_USER=user
-          - POSTGRES_PASSWORD=password
+        environment: &db_env
+          POSTGRES_DB: pg_grpc_service_template_db_1
+          POSTGRES_USER: user
+          POSTGRES_PASSWORD: password
         ports:
           - 5432
         volumes:
@@ -20,12 +20,10 @@ services:
         image: ghcr.io/userver-framework/ubuntu-22.04-userver-pg:latest
         privileged: true
         environment:
-          - POSTGRES_DB=pg_grpc_service_template_db_1
-          - POSTGRES_USER=user
-          - POSTGRES_PASSWORD=password
-          - PREFIX=${PREFIX:-~/.local}
-          - CCACHE_DIR=/pg_grpc_service_template/.ccache
-          - CORES_DIR=/cores
+          <<: *db_env
+          PREFIX: ${PREFIX:-~/.local}
+          CCACHE_DIR: /pg_grpc_service_template/.ccache
+          CORES_DIR: /cores
         volumes:
           - .:/pg_grpc_service_template:rw
           - ${TC_CORES_DIR:-./.cores}:/cores:rw
