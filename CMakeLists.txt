@@ -13,7 +13,7 @@ if(NOT userver_FOUND)  # Fallback to subdirectory usage
     set(USERVER_FEATURE_GRPC_CHANNELZ OFF CACHE BOOL "" FORCE)
     set(USERVER_FEATURE_REDIS_HI_MALLOC ON CACHE BOOL "" FORCE)
 
-    if (EXISTS third_party/userver)
+    if (EXISTS ${CMAKE_CURRENT_SOURCE_DIR}/third_party/userver)
         message(STATUS "Using userver framework from third_party/userver")
         add_subdirectory(third_party/userver)
     else()
