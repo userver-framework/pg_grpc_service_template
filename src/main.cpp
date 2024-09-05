@@ -4,6 +4,7 @@
 #include <userver/server/handlers/tests_control.hpp>
 #include <userver/testsuite/testsuite_support.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
+#include <userver/ugrpc/client/common_component.hpp>
 #include <userver/ugrpc/server/server_component.hpp>
 #include <userver/utils/daemon_run.hpp>
 
@@ -14,6 +15,7 @@ int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
           .Append<userver::ugrpc::server::ServerComponent>()
+          .Append<userver::ugrpc::client::CommonComponent>()
           .Append<userver::ugrpc::client::ClientFactoryComponent>()
           .Append<userver::server::handlers::Ping>()
           .Append<userver::components::TestsuiteSupport>()
