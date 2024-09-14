@@ -27,6 +27,9 @@ components_manager:
               - grpc-client-logging
               - grpc-client-deadline-propagation
 
+        grpc-client-logging:
+        grpc-client-deadline-propagation:
+
         handler-hello:
 
         hello-client:
@@ -40,6 +43,11 @@ components_manager:
                   - grpc-server-deadline-propagation
                   - grpc-server-congestion-control
                 task-processor: main-task-processor
+ngestion-control
+
+        grpc-server-logging:
+        grpc-server-deadline-propagation:
+        grpc-server-congestion-control:
 
         server:
             listener:                 # configuring the main listening socket...
