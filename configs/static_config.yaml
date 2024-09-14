@@ -23,6 +23,9 @@ components_manager:
             # Optional channel parameters for gRPC Core
             # https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
             channel-args: {}
+            middlewares:
+              - grpc-client-logging
+              - grpc-client-deadline-propagation
 
         handler-hello:
 
@@ -32,7 +35,10 @@ components_manager:
         grpc-server:
             port: 8081
             service-defaults:
-                middlewares: []
+                middlewares:
+                  - grpc-server-logging
+                  - grpc-server-deadline-propagation
+                  - grpc-server-congestion-control
                 task-processor: main-task-processor
 
         server:
