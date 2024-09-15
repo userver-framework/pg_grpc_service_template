@@ -44,6 +44,7 @@ components_manager:
                   - grpc-server-congestion-control
                 task-processor: main-task-processor
 
+        congestion-control:
         grpc-server-logging:
         grpc-server-deadline-propagation:
         grpc-server-congestion-control:
