@@ -1,5 +1,6 @@
 #include <userver/clients/http/component.hpp>
 #include <userver/components/minimal_server_component_list.hpp>
+#include <userver/congestion_control/component.hpp>
 #include <userver/server/handlers/ping.hpp>
 #include <userver/server/handlers/tests_control.hpp>
 #include <userver/testsuite/testsuite_support.hpp>
@@ -19,6 +20,7 @@
 int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
+          .Append<userver::congestion_control::Component>()
           .Append<userver::ugrpc::server::ServerComponent>()
           .Append<userver::ugrpc::server::middlewares::congestion_control::Component>()
           .Append<userver::ugrpc::server::middlewares::deadline_propagation::Component>()
