@@ -1,7 +1,7 @@
 components_manager:
     task_processors:                  # Task processor is an executor for coroutine tasks
 
-        main-task-processor:          # Make a task processor for CPU-bound couroutine tasks.
+        main-task-processor:          # Make a task processor for CPU-bound coroutine tasks.
             worker_threads: $worker-threads         # Process tasks in 4 threads.
 
         fs-task-processor:            # Make a separate task processor for filesystem bound tasks.
@@ -14,13 +14,21 @@ components_manager:
     default_task_processor: main-task-processor
 
     components:                       # Configuring components that were registered via component_list
-        grpc-client-factory:
+        # Settings common to all gRPC client factories
+        grpc-client-common:
             # The TaskProcessor for blocking connection initiation
-            task-processor: grpc-blocking-task-processor
+            blocking-task-processor: grpc-blocking-task-processor
 
+        grpc-client-factory:
             # Optional channel parameters for gRPC Core
             # https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
             channel-args: {}
+            middlewares:
+              - grpc-client-logging
+              - grpc-client-deadline-propagation
+
+        grpc-client-logging:
+        grpc-client-deadline-propagation:
 
         handler-hello:
 
@@ -30,8 +38,16 @@ components_manager:
         grpc-server:
             port: 8081
             service-defaults:
-                middlewares: []
+                middlewares:
+                  - grpc-server-logging
+                  - grpc-server-deadline-propagation
+                  - grpc-server-congestion-control
                 task-processor: main-task-processor
+
+        congestion-control:
+        grpc-server-logging:
+        grpc-server-deadline-propagation:
+        grpc-server-congestion-control:
 
         server:
             listener:                 # configuring the main listening socket...
