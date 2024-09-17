@@ -63,6 +63,14 @@ install-debug install-release: install-%: build-%
 .PHONY: install
 install: install-release
 
+# CPack
+.PHONY: cpack-debug cpack-release
+cpack-debug cpack-release: cpack-%: build-%
+	cd build_$* && cpack -G DEB 
+
+.PHONY: cpack
+cpack: cpack-release
+
 # Format the sources
 .PHONY: format
 format:

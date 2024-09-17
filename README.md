@@ -30,6 +30,8 @@ Makefile contains typicaly useful targets for development:
 * `make dist-clean` - clean all, including the CMake cached configurations
 * `make install` - does a `make build-release` and runs install in directory set in environment `PREFIX`
 * `make install-debug` - does a `make build-debug` and runs install in directory set in environment `PREFIX`
+* `make cpack` - does a `make build-release` and runs cpack
+* `make cpack-debug` - does a `make build-debug` and runs cpack
 * `make docker-COMMAND` - run `make COMMAND` in docker environment
 * `make docker-build-debug` - debug build of the service with all the assertions and sanitizers enabled in docker environment
 * `make docker-test-debug` - does a `make build-debug` and runs all the tests on the result in docker environment
