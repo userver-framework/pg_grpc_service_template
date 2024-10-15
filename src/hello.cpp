@@ -8,8 +8,8 @@
 
 namespace pg_grpc_service_template {
 
-void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
-                     handlers::api::HelloRequest&& request) {
+Hello::SayHelloResult Hello::SayHello(CallContext& /*context*/,
+                                      handlers::api::HelloRequest&& request) {
   auto name = request.name();
 
   auto user_type = UserType::kFirstTime;
@@ -31,7 +31,7 @@ void Hello::SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
   }
   handlers::api::HelloResponse response;
   response.set_text(pg_grpc_service_template::SayHelloTo(name, user_type));
-  call.Finish(response);
+  return response;
 }
 
 std::string SayHelloTo(std::string_view name, UserType type) {
