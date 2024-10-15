@@ -27,8 +27,8 @@ class Hello final : public handlers::api::HelloServiceBase::Component {
                 .GetCluster()),
         client_(component_context.FindComponent<HelloClient>()) {}
 
-  void SayHello(handlers::api::HelloServiceBase::SayHelloCall& call,
-                handlers::api::HelloRequest&& request);
+  SayHelloResult SayHello(CallContext& context,
+                          handlers::api::HelloRequest&& request);
 
  private:
   userver::storages::postgres::ClusterPtr pg_cluster_;
