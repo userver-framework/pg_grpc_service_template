@@ -46,7 +46,7 @@ std::string SayHelloTo(std::string_view name, UserType type) {
       return fmt::format("Hi again, {}!\n", name);
   }
 
-  UASSERT(false);
+  UINVARIANT(false, "Invalid user type");
 }
 
 void AppendHello(userver::components::ComponentList& component_list) {
