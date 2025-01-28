@@ -9,7 +9,7 @@
 #include <userver/storages/postgres/component.hpp>
 #include "hello_client.hpp"
 
-namespace pg_grpc_service_template {
+namespace service_template {
 
 enum class UserType { kFirstTime, kKnown };
 std::string SayHelloTo(std::string_view name, UserType type);
@@ -37,4 +37,4 @@ class Hello final : public handlers::api::HelloServiceBase::Component {
 
 void AppendHello(userver::components::ComponentList& component_list);
 
-}  // namespace pg_grpc_service_template
+}  // namespace service_template
