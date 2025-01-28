@@ -38,11 +38,9 @@ components_manager:
         grpc-server:
             port: 8081
             service-defaults:
-                middlewares:
-                  - grpc-server-logging
-                  - grpc-server-deadline-propagation
-                  - grpc-server-congestion-control
                 task-processor: main-task-processor
+
+        grpc-server-middlewares-pipeline:
 
         congestion-control:
         grpc-server-logging:
