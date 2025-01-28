@@ -41,9 +41,6 @@ components_manager:
                 task-processor: main-task-processor
 
         grpc-server-middlewares-pipeline:
-            middlewares:
-                grpc-server-baggage:
-                   enabled: false
 
         congestion-control:
         grpc-server-logging:
