@@ -28,11 +28,6 @@ jobs:
                     ccache-dir-${{github.ref}}_run-
                     ccache-
 
-          - name: Install docker-compose
-            run: |
-                sudo apt update
-                sudo apt install --allow-downgrades -y docker-compose
-
           - name: Cmake
             run: make docker-cmake-release
 
