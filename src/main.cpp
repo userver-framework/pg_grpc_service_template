@@ -18,7 +18,6 @@ int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
           .AppendComponentList(userver::ugrpc::server::MinimalComponentList())
-          .Append<userver::congestion_control::Component>()
           .Append<userver::ugrpc::client::CommonComponent>()
           .Append<userver::ugrpc::client::ClientFactoryComponent>()
           .Append<userver::ugrpc::client::middlewares::deadline_propagation::Component>()

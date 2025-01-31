@@ -1,7 +1,9 @@
 PROJECT_NAME = service_template
 NPROCS ?= $(shell nproc)
 CLANG_FORMAT ?= clang-format
-DOCKER_COMPOSE ?= docker-compose
+DOCKER_IMAGE ?= ghcr.io/userver-framework/ubuntu-24.04-userver:latest
+# Directory with the project
+DOCKER_HOME ?= /home
 PRESETS ?= debug release debug-custom release-custom
 
 .PHONY: all
@@ -62,32 +64,21 @@ format:
 	find src -name '*pp' -type f | xargs $(CLANG_FORMAT) -i
 	find tests -name '*.py' -type f | xargs autopep8 -i
 
-# Set environment for --in-docker-start
-export DB_CONNECTION := postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@service-postgres:5432/${POSTGRES_DB}
-
-# Internal hidden targets that are used only in docker environment
-.PHONY: $(addprefix --in-docker-start-, $(PRESETS))
-$(addprefix --in-docker-start-, $(PRESETS)): --in-docker-start-%: install-%
-	psql ${DB_CONNECTION} -f ./postgresql/data/initial_data.sql
-	/home/user/.local/bin/$(PROJECT_NAME) \
-		--config /home/user/.local/etc/$(PROJECT_NAME)/static_config.yaml \
-		--config_vars /home/user/.local/etc/$(PROJECT_NAME)/config_vars.docker.yaml
-
-# Build and run service in docker environment
-.PHONY: $(addprefix docker-start-, $(PRESETS))
-$(addprefix docker-start-, $(PRESETS)): docker-start-%:
-	$(DOCKER_COMPOSE) run -p 8080:8080 -p 8081:8081 --rm $(PROJECT_NAME)-container make -- --in-docker-start-$*
-
 .PHONY: docker-start-service-debug docker-start-service-release
 docker-start-service-debug docker-start-service-release: docker-start-service-%: docker-start-%
 
 # Start targets makefile in docker environment
-.PHONY: $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS)) $(addprefix docker-install-, $(PRESETS))
-$(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS)) $(addprefix docker-install-, $(PRESETS)): docker-%:
-	$(DOCKER_COMPOSE) run --rm $(PROJECT_NAME)-container make $*
+.PHONY: $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS))
+$(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS)): docker-%:
+	docker run -it \
+		--network=host \
+		-v $(DOCKER_HOME):$(DOCKER_HOME) \
+		-w $$PWD \
+		-u $(shell /bin/id -u) \
+		$(DOCKER_IMAGE) \
+		env CCACHE_DIR=~/.ccache make $*
 
 # Stop docker container and remove PG data
 .PHONY: docker-clean-data
 docker-clean-data:
-	$(DOCKER_COMPOSE) down -v
 	rm -rf ./.pgdata
