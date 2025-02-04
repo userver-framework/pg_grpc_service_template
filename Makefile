@@ -75,10 +75,11 @@ $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(
 		--network=host \
 		-v $(DOCKER_HOME):$(DOCKER_HOME) \
 		-w $$PWD \
+		-u $(shell /bin/id -u):$(shell /bin/id -g) \
 		$(DOCKER_IMAGE) \
 		env CCACHE_DIR=$$HOME/.ccache \
 		    HOME=$$HOME \
-		    $$PWD/run_as_user.sh $(shell /bin/id -u) $(shell /bin/id -g) make $*
+		    make $*
 
 # Stop docker container and remove PG data
 .PHONY: docker-clean-data
