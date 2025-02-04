@@ -79,7 +79,6 @@ $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(
 		$(DOCKER_IMAGE) \
 		env CCACHE_DIR=$$HOME/.ccache \
 		    HOME=$$HOME \
-		    USER=$$USER \
 		    make $*
 
 # Stop docker container and remove PG data
