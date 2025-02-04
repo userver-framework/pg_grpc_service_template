@@ -69,12 +69,15 @@ format:
 .PHONY: docker-start-service-debug docker-start-service-release
 docker-start-service-debug docker-start-service-release: docker-start-service-%: docker-start-%
 
-# Start targets makefile in docker environment
+# Start targets makefile in docker wrapper.
+# The docker mounts the whole service's source directory,
+# so you can do some stuff as you wish, switch back to host (non-docker) system
+# and still able to access the results.
 .PHONY: $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS))
 $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS)): docker-%:
 	docker run $(DOCKER_ARGS) \
 		--network=host \
-		-v $(DOCKER_HOME):$(DOCKER_HOME) \
+		-v $(PWD):$(PWD) \
 		-w $$PWD \
 		$(DOCKER_IMAGE) \
 		env CCACHE_DIR=$$HOME/.ccache \
