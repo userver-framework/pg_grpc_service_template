@@ -1,7 +1,7 @@
 #!/bin/sh
 
 # Exit on any error and treat unset variables as errors
-set -euo pipefail
+set -euo
 
 OLD_UID=$1
 OLD_GID=$2
