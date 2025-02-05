@@ -77,7 +77,7 @@ docker-start-service-debug docker-start-service-release: docker-start-service-%:
 $(addprefix docker-cmake-, $(PRESETS)) $(addprefix docker-build-, $(PRESETS)) $(addprefix docker-test-, $(PRESETS)) $(addprefix docker-clean-, $(PRESETS)): docker-%:
 	docker run $(DOCKER_ARGS) \
 		--network=host \
-		-v $(PWD):$(PWD) \
+		-v $(DOCKER_HOME):$(DOCKER_HOME) \
 		-w $$PWD \
 		$(DOCKER_IMAGE) \
 		env CCACHE_DIR=$$HOME/.ccache \
