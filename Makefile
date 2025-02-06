@@ -51,14 +51,6 @@ dist-clean:
 	rm -rf .vscode/.cache
 	rm -rf .vscode/compile_commands.json
 
-# Install
-.PHONY: $(addprefix install-, $(PRESETS))
-$(addprefix install-, $(PRESETS)): install-%: build-%
-	cmake --install build-$* -v --component $(PROJECT_NAME)
-
-.PHONY: install
-install: install-release
-
 # Format the sources
 .PHONY: format
 format:
