@@ -1,5 +1,5 @@
-cmake_minimum_required(VERSION 3.12)
-project(pg_grpc_service_template CXX)
+cmake_minimum_required(VERSION 3.12...3.31)
+project(service_template CXX)
 
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_SOURCE_DIR}/cmake")
 include(DownloadUserver)
