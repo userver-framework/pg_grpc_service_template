@@ -23,9 +23,6 @@ components_manager:
             # Optional channel parameters for gRPC Core
             # https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
             channel-args: {}
-            middlewares:
-                grpc-client-baggage:
-                    enabled: false
 
         grpc-client-logging:
         grpc-client-deadline-propagation:
