@@ -21,21 +21,6 @@ def grpc_service(pgsql, grpc_channel, service_client):
 
 
 @pytest.fixture(scope='session')
-def mock_grpc_hello_session(grpc_mockserver, create_grpc_mock):
-    mock = create_grpc_mock(hello_services.HelloServiceServicer)
-    hello_services.add_HelloServiceServicer_to_server(
-        mock.servicer, grpc_mockserver,
-    )
-    return mock
-
-
-@pytest.fixture
-def mock_grpc_server(mock_grpc_hello_session):
-    with mock_grpc_hello_session.mock() as mock:
-        yield mock
-
-
-@pytest.fixture(scope='session')
 def prepare_service_config(grpc_mockserver_endpoint):
     def patch_config(config, config_vars):
         components = config['components_manager']['components']
