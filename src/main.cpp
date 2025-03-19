@@ -5,9 +5,7 @@
 #include <userver/server/handlers/tests_control.hpp>
 #include <userver/testsuite/testsuite_support.hpp>
 #include <userver/ugrpc/client/client_factory_component.hpp>
-#include <userver/ugrpc/client/common_component.hpp>
-#include <userver/ugrpc/client/middlewares/deadline_propagation/component.hpp>
-#include <userver/ugrpc/client/middlewares/log/component.hpp>
+#include <userver/ugrpc/client/component_list.hpp>
 #include <userver/ugrpc/server/component_list.hpp>
 #include <userver/utils/daemon_run.hpp>
 
@@ -18,11 +16,9 @@ int main(int argc, char* argv[]) {
   auto component_list =
       userver::components::MinimalServerComponentList()
           .AppendComponentList(userver::ugrpc::server::MinimalComponentList())
+          .AppendComponentList(userver::ugrpc::client::MinimalComponentList())
           .Append<userver::congestion_control::Component>()
-          .Append<userver::ugrpc::client::CommonComponent>()
           .Append<userver::ugrpc::client::ClientFactoryComponent>()
-          .Append<userver::ugrpc::client::middlewares::deadline_propagation::Component>()
-          .Append<userver::ugrpc::client::middlewares::log::Component>()
           .Append<userver::server::handlers::Ping>()
           .Append<userver::components::TestsuiteSupport>()
           .Append<userver::components::HttpClient>()

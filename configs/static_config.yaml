@@ -23,9 +23,6 @@ components_manager:
             # Optional channel parameters for gRPC Core
             # https://grpc.github.io/grpc/core/group__grpc__arg__keys.html
             channel-args: {}
-            middlewares:
-              - grpc-client-logging
-              - grpc-client-deadline-propagation
 
         grpc-client-logging:
         grpc-client-deadline-propagation:
@@ -40,6 +37,7 @@ components_manager:
             service-defaults:
                 task-processor: main-task-processor
 
+        grpc-client-middlewares-pipeline:
         grpc-server-middlewares-pipeline:
 
         congestion-control:
